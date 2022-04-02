@@ -114,6 +114,16 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI.Business\WebAPI.Business.csproj">
+      <Project>{873a91bb-7ee7-4dcd-af20-bedd1b62ffaa}</Project>
+      <Name>WebAPI.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAPI.Common\WebAPI.Common.csproj">
+      <Project>{b629f481-aec7-46f7-8e5f-bbc1af37501e}</Project>
+      <Name>WebAPI.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
