@@ -1,21 +1,12 @@
 ﻿using Autofac;
 using AutoMapper;
-using System.Linq;
-using System.Reflection;
 
 namespace WebAPI.Business
 {
-    public class ServiceModule : Autofac.Module
+    public class AutoMapperModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //Register business service
-            //builder.RegisterAssemblyTypes(Assembly.Load(ThisAssembly.FullName))
-            builder.RegisterAssemblyTypes(Assembly.Load("WebAPI.Business"))
-                      .Where(t => t.Name.EndsWith("Business"))
-                      .AsImplementedInterfaces()
-                      .InstancePerLifetimeScope();
-
             //Register auto mapper
             builder.Register(context => new MapperConfiguration(cfg =>
             {

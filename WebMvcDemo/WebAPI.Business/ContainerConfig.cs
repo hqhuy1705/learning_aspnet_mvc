@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
@@ -43,7 +44,10 @@ namespace WebAPI.Business
                    .InstancePerRequest();
 
             //Register business module
-            builder.RegisterModule(new ServiceModule());
+            builder.RegisterModule(new BusinessModule());
+
+            //Register auto mapper module
+            builder.RegisterModule(new AutoMapperModule());
 
             //Set the dependency resolver to be Autofac.  
             Container = builder.Build();
