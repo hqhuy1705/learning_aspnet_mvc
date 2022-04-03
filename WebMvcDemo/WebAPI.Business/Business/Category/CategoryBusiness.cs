@@ -11,9 +11,9 @@ namespace WebAPI.Business
     public class CategoryBusiness : ICategoryBusiness
     {
         private readonly IMapper _mapper;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryBusiness(UnitOfWork unitOfWork, IMapper mapper)
+        public CategoryBusiness(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

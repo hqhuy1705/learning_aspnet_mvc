@@ -3,10 +3,10 @@ using WebAPI.Entity;
 
 namespace WebAPI.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private MyEntities dbContext;
-        private GenericRepository<Category> categoryRepository;
+        private IGenericRepository<Category> categoryRepository;
 
         protected IDbFactory DbFactory
         {
@@ -24,7 +24,7 @@ namespace WebAPI.Repository
             get { return dbContext ?? (dbContext = DbFactory.Init()); }
         }
 
-        public GenericRepository<Category> CategoryRepository
+        public IGenericRepository<Category> CategoryRepository
         {
             get
             {

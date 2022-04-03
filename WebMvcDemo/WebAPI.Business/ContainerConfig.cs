@@ -44,7 +44,7 @@ namespace WebAPI.Business
 
             //Register db factory
             builder.RegisterType<UnitOfWork>()
-                   .As<UnitOfWork>()
+                   .As<IUnitOfWork>()
                    .InstancePerRequest();
 
             //Register business module
