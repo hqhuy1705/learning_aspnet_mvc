@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using AutoMapper;
 using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
@@ -41,6 +40,11 @@ namespace WebAPI.Business
             //Register generic repository
             builder.RegisterGeneric(typeof(GenericRepository<>))
                    .As(typeof(IGenericRepository<>))
+                   .InstancePerRequest();
+
+            //Register db factory
+            builder.RegisterType<UnitOfWork>()
+                   .As<UnitOfWork>()
                    .InstancePerRequest();
 
             //Register business module

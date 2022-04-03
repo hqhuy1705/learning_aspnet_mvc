@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using WebAPI.Entity;
+using WebAPI.Repository.Extensions;
 
 namespace WebAPI.Repository
 {
@@ -50,7 +51,7 @@ namespace WebAPI.Repository
         public void Update(T obj)
         {
             dbSet.Attach(obj);
-            dbContext.Entry(obj).State = EntityState.Modified;
+            DbContext.Entry(obj).State = EntityState.Modified;
         }
 
         public void Delete(object id)
@@ -59,9 +60,29 @@ namespace WebAPI.Repository
             dbSet.Remove(existing);
         }
 
+        public virtual void Delete(T entityToDelete)
+        {
+            if (DbContext.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
+        }
+
+
         public bool Save()
         {
-            return dbContext.SaveChanges() > 0;
+            return DbContext.SaveChanges() > 0;
+        }
+
+        public IEnumerable<T> ExecuteStoredProcedure(string storedProcedure, object parameters = null)
+        {
+            return DbContext.Database.SqlQuerySmart<T>(storedProcedure, parameters);
+        }
+
+        public int ExecuteSqlCommandSmart(string storedProcedure, object parameters = null)
+        {
+            return DbContext.Database.ExecuteSqlCommandSmart(storedProcedure, parameters);
         }
     }
 }

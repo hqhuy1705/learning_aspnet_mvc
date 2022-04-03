@@ -11,11 +11,11 @@ namespace WebAPI.Business
     public class CategoryBusiness : ICategoryBusiness
     {
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<Category> _categoryRepository;
+        private readonly UnitOfWork _unitOfWork;
 
-        public CategoryBusiness(IGenericRepository<Category> categoryRepository, IMapper mapper)
+        public CategoryBusiness(UnitOfWork unitOfWork, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -23,7 +23,7 @@ namespace WebAPI.Business
         {
             try
             {
-                var categories = _categoryRepository.GetAll().ToList();
+                var categories = _unitOfWork.CategoryRepository.GetAll().ToList();
 
                 return _mapper.Map<List<CategoryDTO>>(categories);
             }
@@ -37,7 +37,7 @@ namespace WebAPI.Business
         {
             try
             {
-                var category = _categoryRepository.GetById(id);
+                var category = _unitOfWork.CategoryRepository.GetById(id);
 
                 return _mapper.Map<CategoryDTO>(category);
             }
@@ -52,9 +52,9 @@ namespace WebAPI.Business
             try
             {
                 var entity = _mapper.Map<Category>(category);
-                _categoryRepository.Insert(entity);
+                _unitOfWork.CategoryRepository.Insert(entity);
 
-                return _categoryRepository.Save();
+                return _unitOfWork.Save();
             }
             catch
             {
@@ -67,9 +67,9 @@ namespace WebAPI.Business
             try
             {
                 var entities = _mapper.Map<List<Category>>(categories);
-                _categoryRepository.Inserts(entities);
+                _unitOfWork.CategoryRepository.Inserts(entities);
 
-                return _categoryRepository.Save();
+                return _unitOfWork.Save();
             }
             catch
             {
@@ -83,9 +83,9 @@ namespace WebAPI.Business
             {
                 category.UpdatedDate = DateTime.Now;
                 var entity = _mapper.Map<Category>(category);
-                _categoryRepository.Update(entity);
+                _unitOfWork.CategoryRepository.Update(entity);
 
-                return _categoryRepository.Save();
+                return _unitOfWork.Save();
             }
             catch
             {
@@ -98,9 +98,9 @@ namespace WebAPI.Business
             try
             {
                 var entity = _mapper.Map<Category>(category);
-                _categoryRepository.Delete(entity);
+                _unitOfWork.CategoryRepository.Delete(entity);
 
-                return _categoryRepository.Save();
+                return _unitOfWork.Save();
             }
             catch
             {
