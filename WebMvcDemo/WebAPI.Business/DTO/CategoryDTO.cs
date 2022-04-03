@@ -9,5 +9,11 @@ namespace WebAPI.Business.DTO
         public string Description { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+
+        public CategoryDTO()
+        {
+            CreatedDate = CreatedDate ?? DateTime.Now;
+            UpdatedDate = UpdatedDate ?? DateTime.Now;
+        }
     }
 }

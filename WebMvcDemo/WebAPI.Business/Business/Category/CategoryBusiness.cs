@@ -51,8 +51,6 @@ namespace WebAPI.Business
         {
             try
             {
-                category.CreatedDate = DateTime.Now;
-                category.UpdatedDate = DateTime.Now;
                 var entity = _mapper.Map<Category>(category);
                 _categoryRepository.Insert(entity);
 

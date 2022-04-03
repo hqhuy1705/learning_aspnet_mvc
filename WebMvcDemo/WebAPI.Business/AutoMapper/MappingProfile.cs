@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAPI.Business.DTO;
 using WebAPI.Entity;
 
@@ -14,13 +9,13 @@ namespace WebAPI.Business
         public MappingProfile()
         {
             #region User
-            CreateMap<Category, CategoryDTO>();
-            CreateMap<CategoryDTO, Category>();
+            CreateMap<Category, CategoryDTO>().IgnoreAllNonExisting();
+            CreateMap<CategoryDTO, Category>().IgnoreAllNonExisting();
             #endregion
 
             #region User
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
+            CreateMap<User, UserDTO>().IgnoreAllNonExisting();
+            CreateMap<UserDTO, User>().IgnoreAllNonExisting();
             #endregion
         }
     }
