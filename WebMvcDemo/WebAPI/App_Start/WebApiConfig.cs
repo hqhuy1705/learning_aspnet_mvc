@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Swashbuckle.Application;
 using System.Web.Http;
+using WebAPI.Business;
 
 namespace WebAPI
 {
@@ -10,9 +9,18 @@ namespace WebAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            ContainerConfig.Initialize(config);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            // Set Swagger as default start page
+            config.Routes.MapHttpRoute(
+                name: "swagger_root",
+                routeTemplate: "",
+                defaults: null,
+                constraints: null,
+                handler: new RedirectHandler(message => message.RequestUri.ToString(), "swagger"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
