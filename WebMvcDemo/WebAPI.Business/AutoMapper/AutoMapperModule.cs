@@ -7,7 +7,7 @@ namespace WebAPI.Business
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //Register auto mapper
+            //Register auto mapper configuration
             builder.Register(context => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());

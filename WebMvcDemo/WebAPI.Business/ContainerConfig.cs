@@ -30,22 +30,22 @@ namespace WebAPI.Business
             //Register db context
             builder.RegisterType<MyEntities>()
                    .As<DbContext>()
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
 
             //Register db factory
             builder.RegisterType<DbFactory>()
                    .As<IDbFactory>()
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
 
             //Register generic repository
             builder.RegisterGeneric(typeof(GenericRepository<>))
                    .As(typeof(IGenericRepository<>))
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
 
             //Register db factory
             builder.RegisterType<UnitOfWork>()
                    .As<IUnitOfWork>()
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
 
             //Register business module
             builder.RegisterModule(new BusinessModule());
