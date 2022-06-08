@@ -4,7 +4,7 @@
     + Autofac (Dependencies Injection)
     + Swagger
     + Auto mapper
-    + Unit of work pattern
+    + Unit Of Work pattern
     + Generic Repository Pattern
     + Factory Pattern
     + Entity Framework using Database first
