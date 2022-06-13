@@ -10,6 +10,6 @@ namespace WebAPI.Business
         bool CreateCategory(CategoryDTO category);
         bool CreateCategories(List<CategoryDTO> categories);
         bool UpdateCategory(CategoryDTO category);
-        bool DeleteCategory(CategoryDTO category);
+        bool DeleteCategory(int id);
     }
 }
