@@ -93,12 +93,11 @@ namespace WebAPI.Business
             }
         }
 
-        public bool DeleteCategory(CategoryDTO category)
+        public bool DeleteCategory(int id)
         {
             try
             {
-                var entity = _mapper.Map<Category>(category);
-                _unitOfWork.CategoryRepository.Delete(entity);
+                _unitOfWork.CategoryRepository.Delete(id);
 
                 return _unitOfWork.Save();
             }

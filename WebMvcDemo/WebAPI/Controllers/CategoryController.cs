@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using WebAPI.Business;
 using WebAPI.Business.DTO;
@@ -17,16 +20,34 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("getall")]
-        public List<CategoryDTO> GetAll()
+        public HttpResponseMessage GetAll()
         {
-            return _categoryBusiness.GetCategories();
+            var categories = _categoryBusiness.GetCategories();
+
+            if (categories.Any())
+                return Request.CreateResponse(HttpStatusCode.OK, categories);
+
+            throw new HttpResponseException(new HttpResponseMessage
+            {
+                ReasonPhrase = "404 - Not found",
+                StatusCode = HttpStatusCode.NotFound
+            });
         }
 
         [HttpGet]
         [Route("get")]
-        public CategoryDTO Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            return _categoryBusiness.GetCategory(id);
+            var category = _categoryBusiness.GetCategory(id);
+
+            if (category != null)
+                return Request.CreateResponse(HttpStatusCode.OK, category);
+
+            throw new HttpResponseException(new HttpResponseMessage
+            {
+                ReasonPhrase = "404 - Not found",
+                StatusCode = HttpStatusCode.NotFound
+            });
         }
 
         [HttpPost]
@@ -48,6 +69,13 @@ namespace WebAPI.Controllers
         public bool Update(CategoryDTO categoryDTO)
         {
             return _categoryBusiness.UpdateCategory(categoryDTO);
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public bool Delete(int id)
+        {
+            return _categoryBusiness.DeleteCategory(id);
         }
     }
 }

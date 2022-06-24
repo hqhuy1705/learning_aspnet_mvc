@@ -28,33 +28,33 @@ namespace WebAPI.Repository
             dbSet = DbContext.Set<T>();
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return DbContext.Set<T>();
         }
 
-        public T GetById(object id)
+        public virtual T GetById(object id)
         {
             return dbSet.Find(id);
         }
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
             dbSet.Add(entity);
         }
 
-        public void Inserts(IEnumerable<T> entites)
+        public virtual void Inserts(IEnumerable<T> entites)
         {
             dbSet.AddRange(entites);
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             dbSet.Attach(obj);
             DbContext.Entry(obj).State = EntityState.Modified;
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             T existing = dbSet.Find(id);
             dbSet.Remove(existing);
@@ -70,17 +70,17 @@ namespace WebAPI.Repository
         }
 
 
-        public bool Save()
+        public virtual bool Save()
         {
             return DbContext.SaveChanges() > 0;
         }
 
-        public IEnumerable<T> ExecuteStoredProcedure(string storedProcedure, object parameters = null)
+        public virtual IEnumerable<T> ExecuteStoredProcedure(string storedProcedure, object parameters = null)
         {
             return DbContext.Database.SqlQuerySmart<T>(storedProcedure, parameters);
         }
 
-        public int ExecuteSqlCommandSmart(string storedProcedure, object parameters = null)
+        public virtual int ExecuteSqlCommandSmart(string storedProcedure, object parameters = null)
         {
             return DbContext.Database.ExecuteSqlCommandSmart(storedProcedure, parameters);
         }
